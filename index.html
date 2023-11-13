@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+    <body>
+        <div id="kontener">Twoje imię i nazwisko</div>
+        <p class="wyroznione">Twoja miejscowość</p>
+        <input type="text" id="artykul">
+        <div id="liczba"></div>
+    
+        <script>
+            // Zmienna do przechowywania oryginalnej wielkości czcionki
+            var oryginalnaWielkoscCzcionki = 16;
+    
+            // Zdarzenia dla diva o id "kontener"
+            var kontener = document.getElementById("kontener");
+            kontener.addEventListener("click", function() {
+                var losowyKolor = "#" + Math.floor(Math.random()*16777215).toString(16);
+                kontener.style.backgroundColor = losowyKolor;
+            });
+    
+            kontener.addEventListener("mouseenter", function() {
+                oryginalnaWielkoscCzcionki = parseFloat(getComputedStyle(kontener).fontSize);
+                kontener.style.fontSize = (oryginalnaWielkoscCzcionki * 2) + "px";
+            });
+    
+            kontener.addEventListener("mouseleave", function() {
+                kontener.style.fontSize = oryginalnaWielkoscCzcionki + "px";
+            });
+    
+            // Zdarzenia dla paragrafu o klasie "wyroznione"
+            var paragraf = document.querySelector(".wyroznione");
+            paragraf.addEventListener("dblclick", function() {
+                var nazwaMiejscowosci = paragraf.textContent;
+                paragraf.textContent = "Nazwa powiatu";
+            });
+    
+            paragraf.addEventListener("mouseenter", function() {
+                console.log("Zawartość paragrafu: " + paragraf.textContent);
+            });
+    
+            // Zdarzenia dla pola tekstowego o id "artykul"
+            var poleTekstowe = document.getElementById("artykul");
+            poleTekstowe.addEventListener("keydown", function(e) {
+                if (e.key.match(/^[0-9]$/)) {
+                    var liczbaDiv = document.getElementById("liczba");
+                    liczbaDiv.textContent += e.key;
+                }
+            });
+    
+            poleTekstowe.addEventListener("input", function() {
+                poleTekstowe.value = poleTekstowe.value.trim();
+            });
+        </script>
+</body>
+</html>
